@@ -37,19 +37,17 @@ RUN apt-get update \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 ENV DEBIAN_FRONTEND=dialog
+ENV CHROME_BIN=chromium
 
-# Uncomment to default to non-root user
 USER $USER_UID
 
 COPY docker-entrypoint.sh ./
 COPY ./frontend ./
 
-ENV CHROME_BIN=chromium
-
 RUN npm install -g @angular/cli
 
 WORKDIR /frontend
 
-EXPOSE 4200 9876
+EXPOSE 4200
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
