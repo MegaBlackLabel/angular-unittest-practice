@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  node:
+    build: .
+    container_name: angular_frontend
+    environment:
+        NG_CLI_ANALYTICS: "ci"
+    ports:
+        - "4200:4200"
+    volumes:
+        - "./frontend:/frontend"
+        - nodemodules:/frontend/node_modules
+    tty: true
+
+volumes:
+    nodemodules:
+        driver: "local"
