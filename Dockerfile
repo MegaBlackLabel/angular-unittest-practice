@@ -44,6 +44,13 @@ USER $USER_UID
 COPY docker-entrypoint.sh ./
 COPY ./frontend ./
 
+# fix https://github.com/docker/compose/issues/3270#issuecomment-363478501
+USER root
+RUN mkdir /frontend
+RUN mkdir /frontend/node_modules
+RUN chown node:node /frontend/node_modules
+USER $USER_UID
+
 RUN npm install -g @angular/cli
 
 WORKDIR /frontend
